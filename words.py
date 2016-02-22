@@ -2,12 +2,14 @@ class Words:
     def __init__(self):
         self.data = {}
 
-        # Sanitize the word to be usable by the dictionary.
-    def sanitize(self, word):
+    @staticmethod
+    def _sanitize(word):
         return word + ' '
 
     def add(self, word):
-        word = self.sanitize(word)
+        """Add a word to the Words data structure.
+        :param word: The word to be added to the data structure."""
+        word = self._sanitize(word)
 
         curr_dict = self.data
 
@@ -20,11 +22,14 @@ class Words:
             curr_dict = curr_dict[c]
 
     def exists(self, query):
-        word = self.sanitize(word)
+        """Determine whether or not a partuclar word exists within this
+        data structure.
+        :param query: The word to be queried for its existence."""
+        query = self._sanitize(query)
 
         curr_dict = self.data
 
-        for c in word:
+        for c in query:
             # If the current letter doesn't exist, return false.
             if c not in curr_dict:
                 return False
