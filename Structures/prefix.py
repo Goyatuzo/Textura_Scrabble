@@ -1,4 +1,4 @@
-class Words:
+class Prefix:
     def __init__(self):
         self.data = {}
 
@@ -39,3 +39,27 @@ class Words:
 
         # If it's made it to here, that means the word exists.
         return True
+
+
+    def get_words(self, prefix):
+        """Given an input prefix string, return the list of words that begin
+        with prefix.
+        :param prefix: The prefix of the word."""
+        curr_dict = self.data
+
+        # Store the strings here.
+        results = []
+
+        # Go in as far as possible in the dictionary with input prefix.
+        for c in prefix:
+            curr_dict = curr_dict[c]
+
+
+
+
+
+    def __str__(self):
+        """This function will be called when the Words data structure is
+        being printed."""
+
+        return "Test"
