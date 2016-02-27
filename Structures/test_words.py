@@ -3,12 +3,11 @@ import unittest
 from words import Words
 
 
-class TestScrabbleMethods(unittest.TestCase):
+class TestWords(unittest.TestCase):
 
     @staticmethod
     def construct_word_list():
         """The word list that should be used by all tests."""
-
         return Words(['a', 'ab', 'b', 'back', 'zen'])
 
     def test_letters_one(self):

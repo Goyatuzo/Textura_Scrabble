@@ -3,7 +3,7 @@ import unittest
 from prefix import Prefix
 
 
-class TestWordsMethods(unittest.TestCase):
+class TestPrefix(unittest.TestCase):
 
     def test_construct(self):
         """Test constructor of Words."""
