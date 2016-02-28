@@ -15,29 +15,52 @@ def create_words(filename):
     return Words(lines)
 
 
-def create_prefix(filename, suffix = False):
+def create_prefix(filename, suffix=False):
     f = open(filename, 'r')
 
-    prefix_list = Prefix()
+    word_list = []
 
     for line in f:
-        # If the reversed flag is raised, reverse the string.
-        if suffix:
-            line = line[::-1]
-        # Add the word to the dictionary.
-        prefix_list.add(line)
+        # Strip the newline
+        line = line.strip()
 
-    return prefix_list
+        if suffix:
+            word_list.append(line[::-1])
+        else:
+            word_list.append(line)
+
+    return Prefix(word_list)
+
+####################################
 
 args = get_cmd_args()
 
+input_string = args[1]
+
 # Input arg --suffix
 if args[0] == '--suffix':
-    words = create_prefix(args[1], True)
+    # The input argument has to be backwards too, since the words are stored in reverse.
+    words = create_prefix('words.txt', True)[input_string[::-1]]
+    if not words:
+        print "No match for prefix of " + input_string
+    # Fix the reversed strings when printing.
+    else:
+        for word in words:
+            print word[::-1]
+
+
 # Input arg --prefix
 elif args[0] == '--prefix':
-    words = create_prefix(args[1])
+    words = create_prefix('words.txt')[input_string]
+    if not words:
+        print "No match for prefix of " + input_string
+    else:
+        print "\n".join(words)
+
 # No additional input arg
 else:
-    words = create_words(args[0])
-    print "\n".join(words.find_letters(args[1]))
+    words = create_words('words.txt').find_letters(args[0])
+    if not words:
+        print "No match for any of the letters of " + input_string
+    else:
+        print "\n".join(words)

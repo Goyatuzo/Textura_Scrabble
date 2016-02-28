@@ -51,8 +51,10 @@ There are two parts to the solution.
 For the default usage, the solution was to iterate through the word list and the letter string to find matches.
 
 ### Prefix/Suffix Solution
-I created a prefix tree based on the FP-Tree structure. However, since we care about each word, the support counts are not being counted. Instead, each word will keep traversing through the data structure, creating new nodes if necessary, until there are no letters to be processed. The end of the word is labeled as a whitespace to help with processing.
+Initially, I created a FP-growth-like structure to store the values. However, I soon realized that since the program only runs once on one input, constructing the tree takes unnecessary time.
 
-Using this structure, one can input the prefix and the structure will traverse appropriately to the end of the prefix. Once the end is reached, all possible subtrees from that point will be printed out, and since each path to a leaf is a unique word, all possible words will be printed.
+The tree construction takes O(n^2) worst case. This is the same worst case time as if each string was processed to see if its initial characters are the same as the input prefix.
 
-Once the prefix structure is completed, one can use it to work for suffixes as well with one small tweak. Suffixes are prefixes if a string is reversed. So if the input words are all reversed, and the input suffix is also reversed, the exact same algorithm can be run to produce the desired answers.
+Consequently, my previous data structure will be most useful for when there is batch processing, or when there are multiple prefixes to be scanned. Consequently, I chose to implement the easier variant because it is less prone to bugs and is much simpler to maintain.
+
+Suffixes are handled by reversing all words in the dictionary as well as the input prefix. In other words, I handle a suffix as a prefix at the end of a word.

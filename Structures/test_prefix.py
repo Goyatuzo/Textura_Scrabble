@@ -8,111 +8,77 @@ class TestPrefix(unittest.TestCase):
     def test_construct(self):
         """Test constructor of Words."""
         prefix = Prefix()
-        self.assertEqual(prefix.data, {})
+        self.assertEqual(prefix.raw, [])
+
+        prefix = Prefix(['T'])
+        self.assertEqual(prefix.raw, ['T'])
 
     def test_add_basic(self):
         """Test adding one entry into data structure."""
         prefix = Prefix()
         prefix.add('Hello')
 
-        expected = {
-            'H': {
-                'e': {
-                    'l': {
-                        'l': {
-                            'o': {
-                                ' ': {}
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        expected = [
+            'Hello'
+        ]
 
-        self.assertEqual(prefix.data, expected)
+        self.assertEqual(prefix.raw, expected)
 
     def test_add_multiple(self):
-        """Test adding multiple entries into the data structure."""
+        """Test adding multiple entries into the data structure. They
+        should be in alphabetical order even though they were added
+        randomly."""
         prefix = Prefix()
         prefix.add('Test')
         prefix.add('Pass')
 
-        expected = {
-            'T': {
-                'e': {
-                    's': {
-                        't': {
-                            ' ': {}
-                        }
-                    }
-                }
-            },
-            'P': {
-                'a': {
-                    's': {
-                        's': {
-                            ' ': {}
-                        }
-                    }
-                }
-            }
-        }
+        expected = [
+            'Pass',
+            'Test'
+        ]
 
-        self.assertEqual(prefix.data, expected)
+        self.assertEqual(prefix.raw, expected)
 
     def test_add_collision(self):
-        """Test collision adding in the data structure. They should
-        share the same path until the part where the words separate."""
+        """Test adding two values that share common characters."""
         prefix = Prefix()
         prefix.add('H')
         prefix.add('He')
 
-        expected = {
-            'H': {
-                ' ': {},
-                'e': {
-                    ' ': {}
-                }
-            }
-        }
+        expected = [
+            'H',
+            'He'
+        ]
 
-        self.assertEqual(prefix.data, expected)
+        self.assertEqual(prefix.raw, expected)
 
-    def test_exist_basic(self):
-        """Test the existence method for one single entry."""
+    def test_get_simple(self):
+        """Obtain the list of words that contain a prefix. Uses the simple algorithm."""
         prefix = Prefix()
-        prefix.add('Hello')
+        prefix.add('absolute')
+        prefix.add('abstinent')
+        prefix.add('best')
+        prefix.add('tab')
 
-        # Hello should exist, but Hell should not.
-        self.assertTrue(prefix.exists('Hello'))
-        self.assertFalse(prefix.exists('Hell'))
-        self.assertFalse(prefix.exists('Hello '))
+        self.assertEqual(prefix.get_words_simple('ab'), ['absolute', 'abstinent'])
 
-    def test_exist_multiple(self):
-        """Test the existence method for multiple entries."""
+    def test_get_operator(self):
+        """Obtain the list of words that contain a prefix. Uses the [] operator."""
         prefix = Prefix()
-        prefix.add('Te')
-        prefix.add('He')
+        prefix.add('absolute')
+        prefix.add('abstinent')
+        prefix.add('best')
+        prefix.add('tab')
 
-        # Assert Te exists, but not T.
-        self.assertTrue(prefix.exists('Te'))
-        self.assertFalse(prefix.exists('T'))
+        self.assertEqual(prefix['ab'], ['absolute', 'abstinent'])
 
-        # Assert He exists, but not just e.
-        self.assertTrue(prefix.exists('He'))
-        self.assertFalse(prefix.exists('e'))
-
-    def test_exist_collision(self):
-        """This one has a collision where the common root is the capital H. Make
-        sure that H and He both exist."""
+    def test_get_exception(self):
+        """Using the __getitem__ operator (the [] operator) and inputting a number
+        should raise a ValueError."""
         prefix = Prefix()
-        prefix.add('H')
-        prefix.add('He')
+        prefix.add('Hi')
 
-        # Only H and He should exist. Check for case sensitivity.
-        self.assertTrue(prefix.exists('H'))
-        self.assertFalse(prefix.exists('h'))
-        self.assertTrue('He')
+        self.assertRaises(ValueError, prefix.__getitem__, 0)
 
 if __name__ == '__main__':
     unittest.main() 
