@@ -30,5 +30,14 @@ class TestWords(unittest.TestCase):
         self.assertEquals(words.find_letters('ab'), ['a', 'ab', 'b', 'back'])
         self.assertEquals(words.find_letters('az'), ['a', 'ab', 'back', 'zen'])
 
+    def test_get_exception(self):
+        """Test that passing in an invalid value to the [] operator raises an error."""
+        words = self.construct_word_list()
+
+        self.assertEquals(words['ab'], ['a', 'ab', 'b', 'back'])
+        self.assertEquals(words['az'], ['a', 'ab', 'back', 'zen'])
+        self.assertRaises(ValueError, words.__getitem__, 0)
+        self.assertRaises(ValueError, words.__getitem__, [])
+
 if __name__ == '__main__':
     unittest.main()

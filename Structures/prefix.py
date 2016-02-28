@@ -10,6 +10,7 @@ class Prefix:
         :param word: The word to be added to the data structure."""
 
         self.raw.append(word.strip())
+        self.raw.sort()
 
     def get_words_simple(self, prefix):
         """Given an input prefix string, return the list of words that begin

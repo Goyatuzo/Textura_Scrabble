@@ -16,3 +16,11 @@ class Words:
                 results.append(word)
 
         return results
+
+    def __getitem__(self, item):
+        # Confirm that it's a string being passed into the [] operator.
+        if isinstance(item, str):
+            return self.find_letters(item)
+
+        # If any other value is passed in, raise an error.
+        raise ValueError("Only a string can go in the [] operator for Words.")
