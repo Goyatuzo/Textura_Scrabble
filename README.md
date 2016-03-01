@@ -21,13 +21,19 @@ Assume you're program is called "scrabbler".
 To find all the words you can spell with 7 letters "abcdefg" you should be able to type:
 
     $ scrabbler abcdefg
-    
+
 And get back a list of words as output.  Something like:
 
-    ache
-    ...
-    chafed
-    
+        abed
+        accede
+        acceded
+        ace
+         ...
+        gaged
+        gagged
+        gee
+        geed
+
 To find all words that begin with a specific prefix:
 
     $ scrabbler --prefix fi
@@ -48,7 +54,9 @@ To find all words with a specific suffix:
 There are two parts to the solution.
 
 ### Default Solution
-For the default usage, the solution was to iterate through the word list and the letter string to find matches.
+For the default solution, the initial idea was to iterate through the entire list, checking for the existence of certain letters. However, on the revised edition, the algorithm becomes slightly more complex.
+
+Since the user wants to spell a certain word with the given 7 letters, the ordering is not as significant. What matters is the count of letters, so the best way to solve this would be to alphabetically sort the letters, and use it as a key to find the list of words that have the same set of letters.
 
 ### Prefix/Suffix Solution
 Initially, I created a FP-growth-like structure to store the values. However, I soon realized that since the program only runs once on one input, constructing the tree takes unnecessary time.

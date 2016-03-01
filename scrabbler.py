@@ -35,7 +35,10 @@ def create_prefix(filename, suffix=False):
 
 args = get_cmd_args()
 
-input_string = args[1]
+if len(args) == 2:
+    input_string = args[1]
+else:
+    input_string = args[0]
 
 # Input arg --suffix
 if args[0] == '--suffix':
