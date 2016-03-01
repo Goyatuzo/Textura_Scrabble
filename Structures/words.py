@@ -7,7 +7,7 @@ class Words:
         self.data = {}
 
         for word in words:
-            sorted_word = "".join(set(sorted(word)))
+            sorted_word = "".join(sorted(set(word)))
 
             # If the word already exists in the dictionary, just append. Otherwise create new list.
             if sorted_word in self.data:
@@ -21,7 +21,7 @@ class Words:
         :param letters: String of letters to query list of words."""
 
         # Sort the letters and put them into a list.
-        letters = set(sorted(letters))
+        letters = sorted(set(letters))
         combos = []
         results = []
 

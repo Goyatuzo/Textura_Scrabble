@@ -15,10 +15,9 @@ class TestWords(unittest.TestCase):
 
         expected = {
             'a': ['a'],
-            'aab': ['baa'],
-            'ab': ['ab', 'ba'],
+            'ab': ['ab', 'ba', 'baa'],
             'b': ['b'],
-            'eegns': ['genes']
+            'egns': ['genes']
         }
 
         self.assertEqual(words.data, expected)
@@ -30,7 +29,7 @@ class TestWords(unittest.TestCase):
         # a should return 1.
         self.assertEquals(words.find_letters('a'), ['a'])
         # ab should return 2.
-        self.assertEqual(words.find_letters('ab'), ['a', 'ab', 'b', 'ba'])
+        self.assertEqual(words.find_letters('ab'), ['a', 'ab', 'b', 'ba', 'baa'])
         # d should return 0.
         self.assertEquals(words.find_letters('d'), [])
 
@@ -40,7 +39,7 @@ class TestWords(unittest.TestCase):
         words = self.construct_word_list()
 
         # ab should return 4.
-        self.assertEquals(words.find_letters('ab'), ['a', 'ab', 'b', 'ba'])
+        self.assertEquals(words.find_letters('ab'), ['a', 'ab', 'b', 'ba', 'baa'])
         self.assertEquals(words.find_letters('az'), ['a'])
 
     def test_get_exception(self):
@@ -54,13 +53,11 @@ class TestWords(unittest.TestCase):
         """Test the [] operator for valid inputs."""
         words = self.construct_word_list()
 
-        ab = ['a', 'ab', 'b', 'ba']
+        ab = ['a', 'ab', 'b', 'ba', 'baa']
 
         self.assertEquals(words['a'], ['a'])
-        # Should have all a b, but shouldn't have baa
         self.assertEquals(words['ba'], ab)
         self.assertEquals(words['ab'], ab)
-        self.assertNotEqual(words['ab'], ab.extend(['baa']))
 
 if __name__ == '__main__':
     unittest.main()
