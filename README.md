@@ -61,8 +61,22 @@ Since the user wants to spell a certain word with the given 7 letters, the order
 ### Prefix/Suffix Solution
 Initially, I created a FP-growth-like structure to store the values. However, I soon realized that since the program only runs once on one input, constructing the tree takes unnecessary time.
 
-The tree construction takes O(n^2) worst case. This is the same worst case time as if each string was processed to see if its initial characters are the same as the input prefix.
+The tree construction takes O(nm) worst case. n represents the word list length, and m represents the prefix length. This is the same worst case time as if each string was processed to see if its initial characters are the same as the input prefix. In other words, tree construction could potentially take as long as brute forcing the answer for one iteration. In addition to tree construction, the query involves DFS which adds even more time. Consequently, I decided to use brute force instead.
 
-Consequently, my previous data structure will be most useful for when there is batch processing, or when there are multiple prefixes to be scanned. Consequently, I chose to implement the easier variant because it is less prone to bugs and is much simpler to maintain.
+If there was a need for batch processing (such as find all possible prefixes with the current hand), then the tree would have greatly increased the time.
 
 Suffixes are handled by reversing all words in the dictionary as well as the input prefix. In other words, I handle a suffix as a prefix at the end of a word.
+
+## Usage
+For prefix and suffix querying.
+
+    $ python scrabbler.py --[prefix | suffix] letters
+
+Default query.
+
+    $ python scrabbler.py letters
+
+Testing
+
+    $ cd Structures
+    $ python runner.py
