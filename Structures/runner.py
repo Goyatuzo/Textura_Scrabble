@@ -5,6 +5,7 @@ import unittest
 
 test_modules = [
     'test_prefix',
+    'test_suffix',
     'test_words'
 ]
 

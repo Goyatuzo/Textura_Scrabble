@@ -8,10 +8,10 @@ class TestPrefix(unittest.TestCase):
     def test_construct(self):
         """Test constructor of Words."""
         prefix = Prefix()
-        self.assertEqual(prefix.raw, [])
+        self.assertEqual(prefix.data, [])
 
         prefix = Prefix(['T'])
-        self.assertEqual(prefix.raw, ['T'])
+        self.assertEqual(prefix.data, ['T'])
 
     def test_add_basic(self):
         """Test adding one entry into data structure."""
@@ -22,7 +22,7 @@ class TestPrefix(unittest.TestCase):
             'Hello'
         ]
 
-        self.assertEqual(prefix.raw, expected)
+        self.assertEqual(prefix.data, expected)
 
     def test_add_multiple(self):
         """Test adding multiple entries into the data structure. They
@@ -37,7 +37,7 @@ class TestPrefix(unittest.TestCase):
             'Test'
         ]
 
-        self.assertEqual(prefix.raw, expected)
+        self.assertEqual(prefix.data, expected)
 
     def test_add_collision(self):
         """Test adding two values that share common characters."""
@@ -50,7 +50,7 @@ class TestPrefix(unittest.TestCase):
             'He'
         ]
 
-        self.assertEqual(prefix.raw, expected)
+        self.assertEqual(prefix.data, expected)
 
     def test_get_simple(self):
         """Obtain the list of words that contain a prefix. Uses the simple algorithm."""

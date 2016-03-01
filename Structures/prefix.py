@@ -1,16 +1,16 @@
 class Prefix:
     def __init__(self, words=None):
         if words is not None:
-            self.raw = words
+            self.data = words
         else:
-            self.raw = []
+            self.data = []
 
     def add(self, word):
         """Add a word to the Words data structure.
         :param word: The word to be added to the data structure."""
 
-        self.raw.append(word.strip())
-        self.raw.sort()
+        self.data.append(word.strip())
+        self.data.sort()
 
     def get_words_simple(self, prefix):
         """Given an input prefix string, return the list of words that begin
@@ -18,7 +18,7 @@ class Prefix:
         :param prefix: The prefix of the word."""
         results = []
 
-        for word in self.raw:
+        for word in self.data:
             if word.startswith(prefix):
                 results.append(word)
 

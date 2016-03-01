@@ -68,6 +68,8 @@ If there was a need for batch processing (such as find all possible prefixes wit
 Suffixes are handled by reversing all words in the dictionary as well as the input prefix. In other words, I handle a suffix as a prefix at the end of a word.
 
 ## Usage
+Runs on python 2.7.
+
 For prefix and suffix querying.
 
     $ python scrabbler.py --[prefix | suffix] letters

@@ -2,34 +2,38 @@ import sys
 
 from Structures.prefix import Prefix
 from Structures.words import Words
+from Structures.suffix import Suffix
 
 
 def get_cmd_args():
     return sys.argv[1::]
 
 
+def create_word_list(filename):
+    """Construct a list of words from the words in filename. If rev
+    is flagged, reverse each string.
+    :param filename: The filename containing the list of words."""
+    f = open(filename, 'r')
+
+    return [line.strip() for line in f]
+
+
 def create_words(filename):
-    f = open(filename, 'r')
-    lines = [line.strip() for line in f]
+    """Create a word object based on the words in filename.
+    :param filename: The filename containing the list of words."""
+    return Words(create_word_list(filename))
 
-    return Words(lines)
+
+def create_prefix(filename):
+    """Create prefix object based on words in filename.
+    :param filename: The filename containing the list of words."""
+    return Prefix(create_word_list(filename))
 
 
-def create_prefix(filename, suffix=False):
-    f = open(filename, 'r')
-
-    word_list = []
-
-    for line in f:
-        # Strip the newline
-        line = line.strip()
-
-        if suffix:
-            word_list.append(line[::-1])
-        else:
-            word_list.append(line)
-
-    return Prefix(word_list)
+def create_suffix(filename):
+    """Create suffix object based on words in filename.
+    :param filename: The filename containing the list of words."""
+    return Suffix(create_word_list(filename))
 
 ####################################
 
@@ -43,13 +47,12 @@ else:
 # Input arg --suffix
 if args[0] == '--suffix':
     # The input argument has to be backwards too, since the words are stored in reverse.
-    words = create_prefix('words.txt', True)[input_string[::-1]]
+    words = create_suffix('words.txt')[input_string]
+
     if not words:
-        print "No match for prefix of " + input_string
-    # Fix the reversed strings when printing.
+        print "No match for suffix of " + input_string
     else:
-        for word in words:
-            print word[::-1]
+        print "\n".join(words)
 
 
 # Input arg --prefix
